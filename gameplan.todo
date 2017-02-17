@@ -1,0 +1,41 @@
+-- alt-d to complete task
+-- cmd-enter to add a new task
+
+Engine: 
+    Entities:
+        ☐ Player movement (requires physics engine)
+        ☐ Collision callbacks and stacks
+        ☐ Entity / World interactions -- levers and stuff like that
+        ☐ Sword animations and physics
+        ☐ Projectiles
+
+    Physics:
+        ☐ Simple knematic physics engine
+        ☐ Be able to add bodies and remove them
+        ☐ Collision between the bodies and solids from the tiled map
+        ☐ Allow for static and dynamic bodies, along with ice, ladders and world interactions
+        ☐ Allow for forces to be applyed in a certain direction to the entity
+
+    Particles:
+        ☐ Dynamic particle systems using lamdas
+        ☐ Particle and map solids / entities collisions
+
+    Audo:
+        ☐ Sound effects playback
+        ☐ Background music
+        ☐ 2d audio maybe?
+        ☐ Syncronize with enemy movement
+        ☐ Generate ambiant backgound sounds using waves 
+
+    Map:
+        ☐ Room swapping
+        ☐ Live reloading of maps
+        ☐ Dynamic rooms that can change
+
+Graphics:
+    ☐ Tiled map animations
+    ☐ Animated sprite component support
+    ☐ Simple point lighting for dungeons -- using glsl
+    ☐ Map layers -- including forground?
+    ☐ Entity sprite sorting in accordence to y position
+    ☐ Pallet swap using shaders?
