@@ -1,6 +1,8 @@
 require "utils"
 require "modules/live"
 
+_G.DEBUG = true
+
 local s = Reloader:require "data/settings"
 
 _G.Game = {
@@ -9,6 +11,7 @@ _G.Game = {
     World    = require "modules/entity_world",
     GSM      = require "modules/game_scene_manager",
     Assets   = require "modules/assets",
+    Physics  = require "modules/physics_engine",
 
     Canvas   = love.graphics.newCanvas(160, 144),
 }
@@ -19,6 +22,8 @@ function love.load()
     Game.World:Init()
     Game.Assets:Init()
     Game.GSM:Init()
+
+    Game.Physics:Init()
 
     Game.Canvas:setFilter("nearest","nearest")
 
@@ -43,9 +48,12 @@ function love.update(dt)
 end
 
 function love.draw()
+    love.graphics.setColor( 255, 255, 255, 255)
     love.graphics.setCanvas(Game.Canvas)
     Game.Renderer:Render()
-    s.code:Draw()
+    if (s.code.is_debug) then
+        Game.Physics:Debug_Render()
+    end
     love.graphics.setCanvas()
     
     local scale = love.graphics.getWidth() / Game.Canvas:getWidth()
@@ -56,4 +64,5 @@ function love.draw()
     love.graphics.rectangle("fill", 0, 0, 40, 40)
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.print(love.timer.getFPS(), 10, 10)
+
 end
