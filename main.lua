@@ -1,4 +1,7 @@
 require "utils"
+require "modules/live"
+
+local s = Reloader:require "data/settings"
 
 _G.Game = {
     GameLoop = require "modules/gameloop",
@@ -32,6 +35,8 @@ function love.update(dt)
     Game.GameLoop:Update(dt)
     Game.World:Update(dt)
 
+    Reloader:Update(10)
+
     if love.keyboard.isDown "escape" then
         love.event.quit()
     end
@@ -40,6 +45,7 @@ end
 function love.draw()
     love.graphics.setCanvas(Game.Canvas)
     Game.Renderer:Render()
+    s.code:Draw()
     love.graphics.setCanvas()
     
     local scale = love.graphics.getWidth() / Game.Canvas:getWidth()
