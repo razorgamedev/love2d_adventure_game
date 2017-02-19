@@ -8,11 +8,7 @@ function Level:OvInit()
     e:Add(require "components/c_body" .New(), {x = 50, y = 50, w = 16, h = 16})
     e:Add(require "components/c_physics".New(), {friction = .85})
     e:Add(require "components/c_player".New(), {})
-
-    Game.Physics:Add_Static_Body({
-        position = {x = 0, y = 0},
-        size = {x = 25, y = 50}
-    })
+    e:Add(require "components/c_camera_follow".New(), {})
 end
 
 function Level:OvRender()

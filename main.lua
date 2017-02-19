@@ -12,6 +12,7 @@ _G.Game = {
     GSM      = require "modules/game_scene_manager",
     Assets   = require "modules/assets",
     Physics  = require "modules/physics_engine",
+    Camera   = Reloader:require( "modules/camera"),
 
     Canvas   = love.graphics.newCanvas(160, 144),
 }
@@ -40,6 +41,8 @@ function love.update(dt)
     Game.GameLoop:Update(dt)
     Game.World:Update(dt)
 
+    Game.Camera.code:Update(dt)
+
     Reloader:Update(10)
 
     if love.keyboard.isDown "escape" then
@@ -49,12 +52,17 @@ end
 
 function love.draw()
     love.graphics.setColor( 255, 255, 255, 255)
+    Game.Camera.code:Set()
     love.graphics.setCanvas(Game.Canvas)
+    love.graphics.clear()
+
     Game.Renderer:Render()
     if (s.code.is_debug) then
         Game.Physics:Debug_Render()
     end
+
     love.graphics.setCanvas()
+    Game.Camera.code:Unset()
     
     local scale = love.graphics.getWidth() / Game.Canvas:getWidth()
     love.graphics.draw(Game.Canvas, 0, 0, 0, scale, scale)

@@ -5,7 +5,7 @@ New = function()
     local c_player = component.New "physics"
 
     function c_player.Init(e, args)
-        e.Speed = 5
+        e.Speed = 10
     end
 
     function c_player.Update(e, dt)
