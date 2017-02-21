@@ -18,6 +18,7 @@ _G.Game = {
 }
 
 function love.load()
+    
     Game.GameLoop:Init()
     Game.Renderer:Init()
     Game.World:Init()
@@ -27,6 +28,11 @@ function love.load()
     Game.Physics:Init()
 
     Game.Canvas:setFilter("nearest","nearest")
+
+    Game.Assets:AddAsset(
+        love.graphics.newShader(require "assets/shaders/lighting".code),
+        "light-shader"
+    )
 
     Game.Assets:AddAsset(love.graphics.newImage "assets/tiles.png", "tiles")
     Game.Assets:Generate_Quads(8, Game.Assets:GetAsset "tiles", "tiles_quads")
@@ -53,13 +59,24 @@ end
 function love.draw()
     love.graphics.setColor( 255, 255, 255, 255)
     Game.Camera.code:Set()
+
+    local shader = Game.Assets:GetAsset "light-shader"
+
+    shader:send("light_positions", {25, 25}, {100, 100},{500, 500},{100, 500},{})
+    shader:send("light_size", 75)
+    shader:send("number_of_lights", 4)
+    shader:send("camera", {Game.Camera.code.Position.x, Game.Camera.code.Position.y})
+
     love.graphics.setCanvas(Game.Canvas)
     love.graphics.clear()
+    love.graphics.setShader(shader)
+
 
     Game.Renderer:Render()
     if (s.code.is_debug) then
         Game.Physics:Debug_Render()
     end
+    love.graphics.setShader()
 
     love.graphics.setCanvas()
     Game.Camera.code:Unset()
